@@ -1,0 +1,26 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+int main() {
+    std::ifstream f("17-288.txt");
+    std::vector<int> s;
+    int num;
+    while (f >> num) {
+        s.push_back(num);
+    }
+    int count = 0;
+    int minD = INT_MAX;
+    for (int i = 0; i < s.size() - 3; ++i) {
+        if ((abs(s[i]) % 10 == 3 || abs(s[i+1]) % 10 == 3 || abs(s[i+2]) % 10 == 3 || abs(s[i+3]) % 10 == 3) &&
+            (abs(s[i]) % 7 != 3 && abs(s[i+1]) % 7 != 3 && abs(s[i+2]) % 7 != 3 && abs(s[i+3]) % 7 != 3)) {
+            int maxN = std::max({abs(s[i]), abs(s[i+1]), abs(s[i+2]), abs(s[i+3])});
+            int minN = std::min({abs(s[i]), abs(s[i+1]), abs(s[i+2]), abs(s[i+3])});
+            minD = std::min(minD, maxN - minN);
+            count++;
+        }
+    }
+    std::cout << count << std::endl;
+    std::cout << minD << std::endl;
+    return 0;
+}
